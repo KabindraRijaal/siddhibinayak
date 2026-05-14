@@ -38,12 +38,12 @@ export function Navbar({ activePage, navLinks, brandName }: NavbarProps) {
     <>
       <nav
         className={cn(
-          "fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 transition-shadow duration-300",
-          scrolled && "shadow-md"
+          "fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-[#cdd5e3] transition-shadow duration-300",
+          scrolled && "shadow-[0_4px_24px_rgba(0,0,0,0.08)]"
         )}
       >
         <Container>
-          <div className="flex items-center justify-between h-[72px]">
+          <div className="flex items-center justify-between h-18">
             <Link href="/" className="flex items-center gap-3 text-decoration-none">
               <Image
                 src="/logo.jpg"
@@ -80,7 +80,7 @@ export function Navbar({ activePage, navLinks, brandName }: NavbarProps) {
             </div>
 
             <div className="hidden lg:block">
-              <Btn onClick={() => openQuote()}>Get a Quote →</Btn>
+              <Btn onClick={() => openQuote()} className="rounded-[6px] px-5.5 py-2.5 text-sm font-semibold">Get a Quote →</Btn>
             </div>
 
             <button
@@ -95,7 +95,7 @@ export function Navbar({ activePage, navLinks, brandName }: NavbarProps) {
       </nav>
 
       {open && (
-        <div className="fixed top-[72px] inset-x-0 z-40 bg-white border-b border-gray-200 py-6 px-5 flex flex-col gap-5 lg:hidden shadow-md">
+        <div className="fixed top-18 inset-x-0 z-40 bg-white border-b border-[#cdd5e3] py-6 px-8 flex flex-col gap-5 lg:hidden shadow-[0_4px_24px_rgba(0,0,0,0.08)]">
           {NAV_LINKS.map((l) => (
             <Link
               key={l.url}

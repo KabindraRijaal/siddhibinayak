@@ -31,15 +31,15 @@ export function ProjectsGrid({ projects, showFilter = true }: ProjectsGridProps)
   return (
     <>
       {showFilter && (
-        <div className="flex gap-2 overflow-x-auto pb-2 mb-8 scrollbar-none">
+        <div className="flex gap-2 overflow-x-auto pb-2 mb-10 scrollbar-none">
           {cats.map((c) => (
             <button
               key={c}
               onClick={() => setFilter(c)}
-              className={`px-4 py-2 rounded-full text-sm font-semibold whitespace-nowrap transition-colors ${
+              className={`px-5 py-2 rounded-full text-[13px] font-semibold whitespace-nowrap transition-all duration-200 border-[1.5px] ${
                 filter === c
-                  ? "bg-primary text-white"
-                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
+                  ? "bg-primary border-primary text-white"
+                  : "bg-transparent border-[#cdd5e3] text-[#3e4a5e] hover:bg-gray-50"
               }`}
             >
               {c}
@@ -48,7 +48,7 @@ export function ProjectsGrid({ projects, showFilter = true }: ProjectsGridProps)
         </div>
       )}
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-7">
         {shown.map((p) => (
           <ProjectCard key={p.name} project={p} onOpen={setSelected} />
         ))}

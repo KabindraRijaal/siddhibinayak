@@ -16,7 +16,7 @@ const variants: Record<Variant, string> = {
   primary:
     "bg-primary text-white hover:bg-primary-dark hover:-translate-y-0.5 shadow-sm hover:shadow-lg",
   outline:
-    "border border-secondary text-secondary hover:bg-secondary hover:text-white hover:-translate-y-0.5",
+    "border-[1.5px] border-secondary text-secondary hover:bg-secondary hover:text-white hover:-translate-y-0.5",
   white:
     "bg-white text-primary hover:shadow-xl hover:-translate-y-0.5",
   ghost:

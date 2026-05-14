@@ -1,11 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Btn } from "@/components/atoms/Btn";
 import { toast } from "sonner";
+
+const inputCls = "px-4 py-3 border border-[#cdd5e3] rounded-lg text-[15px] bg-white outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(15,34,64,0.08)] transition-all w-full font-body text-foreground placeholder:text-gray-400";
+const labelCls = "text-[12px] font-semibold tracking-[0.1em] uppercase text-[#3e4a5e]";
 
 export function ContactForm() {
   const [loading, setLoading] = useState(false);
@@ -22,34 +21,48 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-5">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <Label>Full Name *</Label>
-          <Input placeholder="Your name" required />
+        <div className="flex flex-col gap-1.5">
+          <label className={labelCls}>Full Name *</label>
+          <input className={inputCls} type="text" placeholder="Your name" required />
         </div>
-        <div className="space-y-1.5">
-          <Label>Phone *</Label>
-          <Input placeholder="+977 98XXXXXXXX" required />
+        <div className="flex flex-col gap-1.5">
+          <label className={labelCls}>Phone Number *</label>
+          <input className={inputCls} type="tel" placeholder="+977 98XXXXXXXX" required />
         </div>
       </div>
-      <div className="space-y-1.5">
-        <Label>Email</Label>
-        <Input type="email" placeholder="you@example.com" />
+      <div className="flex flex-col gap-1.5">
+        <label className={labelCls}>Email Address</label>
+        <input className={inputCls} type="email" placeholder="your@email.com" />
       </div>
-      <div className="space-y-1.5">
-        <Label>Subject</Label>
-        <Input placeholder="How can we help you?" />
+      <div className="flex flex-col gap-1.5">
+        <label className={labelCls}>Service Required</label>
+        <select className={inputCls}>
+          <option value="">Select a service…</option>
+          <option>Residential Construction</option>
+          <option>Architectural Design</option>
+          <option>Interior Design</option>
+          <option>Commercial Projects</option>
+          <option>Renovation &amp; Remodelling</option>
+          <option>Roofing Solutions</option>
+          <option>Foundation &amp; Civil Works</option>
+          <option>Project Management</option>
+        </select>
       </div>
-      <div className="space-y-1.5">
-        <Label>Message *</Label>
-        <Textarea
-          placeholder="Tell us about your project or inquiry..."
-          rows={5}
+      <div className="flex flex-col gap-1.5">
+        <label className={labelCls}>Project Details *</label>
+        <textarea
+          className={`${inputCls} min-h-30 resize-vertical`}
+          placeholder="Tell us about your project — location, size, budget range, timeline…"
           required
         />
       </div>
-      <Btn type="submit" className="self-start" disabled={loading}>
-        {loading ? "Sending..." : "Send Message →"}
-      </Btn>
+      <button
+        type="submit"
+        disabled={loading}
+        className="bg-primary text-white font-head font-semibold text-[15px] py-3.5 px-7 rounded-lg hover:bg-[#0a1733] transition-colors flex items-center gap-2 w-fit disabled:opacity-60"
+      >
+        {loading ? "Sending…" : "Send Message →"}
+      </button>
     </form>
   );
 }

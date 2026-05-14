@@ -29,7 +29,7 @@ export function AboutClient() {
         desc={about.pageDesc}
       />
 
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
           <div className="grid lg:grid-cols-2 gap-20 items-center mt-0">
             <div className="hidden lg:flex rounded-2xl overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 items-center justify-center font-mono text-sm text-gray-400" style={{ aspectRatio: "4/5", minHeight: "400px" }}>
@@ -45,7 +45,7 @@ export function AboutClient() {
                 <span className="w-8 h-0.5 bg-primary inline-block" />
                 Our Beginning
               </div>
-              <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-tight mb-5">
+              <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-[-0.01em] mb-5">
                 From a Small Baglung Studio to a Trusted Regional Partner
               </h2>
               <p className="text-[16px] text-[#4a5568] leading-[1.8] mb-[18px]">{about.storyP1}</p>
@@ -59,13 +59,13 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <section className="py-24 bg-[#f8f9fa]">
+      <section className="py-30 bg-[#f8f9fa]">
         <Container>
           <div className="text-[13px] font-semibold tracking-[0.12em] uppercase text-primary mb-3 flex items-center gap-2.5">
             <span className="w-8 h-0.5 bg-primary inline-block" />
             What Drives Us
           </div>
-          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-tight mb-16">
+          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-[-0.01em] mb-16">
             Mission, Vision &amp; Values
           </h2>
           <div className="grid md:grid-cols-3 gap-6">
@@ -93,13 +93,13 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
           <div className="text-[13px] font-semibold tracking-[0.12em] uppercase text-primary mb-3 flex items-center gap-2.5">
             <span className="w-8 h-0.5 bg-primary inline-block" />
             Our Journey
           </div>
-          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-tight mb-16">
+          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-[-0.01em] mb-16">
             Milestones Along the Way
           </h2>
           <div className="relative pl-10" style={{ paddingLeft: "40px" }}>
@@ -116,13 +116,13 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <section className="py-24 bg-[#f8f9fa]">
+      <section className="py-30 bg-[#f8f9fa]">
         <Container>
           <div className="text-[13px] font-semibold tracking-[0.12em] uppercase text-primary mb-3 flex items-center gap-2.5">
             <span className="w-8 h-0.5 bg-primary inline-block" />
             Why Clients Choose Us
           </div>
-          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-tight mb-16">
+          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-[-0.01em] mb-16">
             Our Core Principles
           </h2>
           <div className="grid md:grid-cols-2 gap-8">
@@ -139,13 +139,13 @@ export function AboutClient() {
         </Container>
       </section>
 
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
           <div className="text-[13px] font-semibold tracking-[0.12em] uppercase text-primary mb-3 flex items-center gap-2.5">
             <span className="w-8 h-0.5 bg-primary inline-block" />
             Meet the Team
           </div>
-          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-tight mb-16">
+          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-[-0.01em] mb-16">
             The People Behind Every Project
           </h2>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">

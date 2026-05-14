@@ -143,7 +143,7 @@ export function ProjectsClient() {
             <span className="w-8 h-0.5 bg-primary inline-block" />
             Our Portfolio
           </div>
-          <h1 className="font-head font-extrabold leading-[1.1] tracking-tight mb-5" style={{ fontSize: "clamp(36px, 4vw, 56px)", letterSpacing: "-0.02em" }}>
+          <h1 className="font-head font-extrabold leading-[1.1] tracking-[-0.01em] mb-5" style={{ fontSize: "clamp(36px, 4vw, 56px)", letterSpacing: "-0.02em" }}>
             Every Project,<br />A <span className="text-primary">Story Built</span> in Stone
           </h1>
           <p className="text-[17px] text-[#4a5568] leading-[1.7] max-w-[600px] mb-12">

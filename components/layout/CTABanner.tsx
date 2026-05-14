@@ -15,11 +15,11 @@ export function CTABanner({
   ctaHref = "/contact",
 }: CTABannerProps) {
   return (
-    <section className="bg-gradient-to-br from-primary to-primary-dark py-20 text-center">
+    <section className="bg-linear-to-br from-primary to-primary-dark py-20 text-center">
       <Container>
         <div className="max-w-2xl mx-auto">
-          <h2 className="font-head text-4xl font-extrabold text-white mb-4">{title}</h2>
-          <p className="text-[17px] text-white/80 mb-8 leading-relaxed">{desc}</p>
+          <h2 className="font-head text-[40px] font-extrabold text-white mb-4">{title}</h2>
+          <p className="text-[17px] text-white/80 mb-9 leading-relaxed">{desc}</p>
           <Btn variant="white" href={ctaHref}>
             {ctaLabel}
           </Btn>

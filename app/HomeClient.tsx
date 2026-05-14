@@ -86,7 +86,7 @@ export function HomeClient() {
               </div>
             </div>
             <div className="hidden lg:block relative">
-              <div className="rounded-[20px] overflow-hidden w-full bg-gradient-to-br from-[#e7e8e9] to-[#d9dadb] flex flex-col items-center justify-center gap-3 text-[#6b7585] font-mono text-[13px]" style={{ aspectRatio: "4/5" }}>
+              <div className="rounded-[20px] overflow-hidden w-full bg-linear-to-br from-[#e7e8e9] to-[#d9dadb] flex flex-col items-center justify-center gap-3 text-[#6b7585] font-mono text-[13px]" style={{ aspectRatio: "4/5" }}>
                 {home.heroImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={home.heroImage} alt="Hero" className="w-full h-full object-cover" />
@@ -111,29 +111,29 @@ export function HomeClient() {
       </section>
 
       {/* STATS BAR */}
-      <section className="bg-primary-dark py-14">
+      <div className="bg-[#2e3f5c] py-[60px]">
         <Container>
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-10">
             {home.stats.map((s) => (
               <StatCard key={s.label} num={parseInt(s.num) || 0} label={s.label} />
             ))}
           </div>
         </Container>
-      </section>
+      </div>
 
       {/* SERVICES */}
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
               <SectionLabel>What We Do</SectionLabel>
-              <h2 className="font-head text-[clamp(28px,3.5vw,48px)] font-bold text-foreground leading-[1.2] tracking-tight mb-5">
+              <h2 className="font-head text-[clamp(28px,3.5vw,48px)] font-bold text-foreground leading-[1.2] tracking-[-0.01em] mb-5">
                 Services Tailored<br />to Your Needs
               </h2>
               <p className="text-[17px] text-gray-500 leading-[1.7] max-w-140">{services.pageDesc}</p>
             </div>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {serviceCards.map((s) => (
               <ServiceCard key={s.title} {...s} />
             ))}
@@ -142,25 +142,25 @@ export function HomeClient() {
       </section>
 
       {/* ABOUT */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-30 bg-gray-50">
         <Container>
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
+          <div className="grid lg:grid-cols-2 gap-20 items-center">
             <div className="relative hidden lg:flex items-center justify-center">
-              <div className="rounded-2xl overflow-hidden aspect-3/4 w-full bg-gray-200 flex items-center justify-center text-gray-400 text-sm font-mono">
+              <div className="rounded-2xl overflow-hidden aspect-4/3 w-full bg-linear-to-br from-[#e7e8e9] to-[#d9dadb] flex items-center justify-center text-[#6b7585] font-mono text-xs">
                 {home.aboutImage ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <img src={home.aboutImage} alt="About" className="w-full h-full object-cover" />
                 ) : "team / construction site photo"}
               </div>
-              <div className="absolute bottom-6 -right-4 bg-white rounded-2xl p-5 shadow-xl border border-gray-100">
-                <div className="font-head font-extrabold text-4xl text-primary">17<span className="text-gold">+</span></div>
-                <div className="text-[12px] text-gray-500 uppercase tracking-wider mt-1">Years Building Baglung</div>
+              <div className="absolute bottom-6 -right-4 bg-white rounded-2xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.12)] border border-white">
+                <div className="font-head font-extrabold text-[36px] leading-none text-primary">17<span className="text-[#f4b400]">+</span></div>
+                <div className="text-[12px] text-[#3e4a5e] uppercase tracking-[0.08em] mt-1">Years Building Baglung</div>
               </div>
             </div>
             <div>
               <SectionLabel>About Siddhibinayak</SectionLabel>
-              <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-tight mb-5">{home.aboutTitle}</h2>
-              <p className="text-[17px] text-gray-600 leading-relaxed mb-8">{home.aboutP1}</p>
+              <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-[-0.01em] mb-5">{home.aboutTitle}</h2>
+              <p className="text-[17px] text-[#4a5568] leading-[1.7] mb-8">{home.aboutP1}</p>
               <div className="flex flex-col gap-4">
                 {[
                   { icon: <svg key="m" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#0f2240" strokeWidth="1.8"><path d="M11 2l2.4 7.4H21l-6.2 4.5 2.4 7.4L11 17l-6.2 4.3 2.4-7.4L1 9.4h7.6z"/></svg>, title: "Our Mission", desc: about.mission },
@@ -183,12 +183,12 @@ export function HomeClient() {
       </section>
 
       {/* PROJECTS */}
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
-          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16">
             <div>
               <SectionLabel>Our Portfolio</SectionLabel>
-              <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-tight">Featured Construction Projects</h2>
+              <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-[-0.01em]">Featured Construction Projects</h2>
               <p className="text-[17px] text-gray-600 mt-3 max-w-xl">Explore our portfolio where innovative design and quality craftsmanship come together.</p>
             </div>
             <Btn variant="outline" href="/projects">View All Projects</Btn>
@@ -204,10 +204,10 @@ export function HomeClient() {
             <span className="w-8 h-0.5 bg-[#f4b400] inline-block" />
             Why Choose Us
           </div>
-          <h2 className="font-head text-[clamp(28px,3.5vw,48px)] font-bold text-white leading-[1.2] tracking-tight mb-5">Quality That Speaks<br />For Itself</h2>
+          <h2 className="font-head text-[clamp(28px,3.5vw,48px)] font-bold text-white leading-[1.2] tracking-[-0.01em] mb-5">Quality That Speaks<br />For Itself</h2>
           <p className="text-[17px] text-white/65 leading-relaxed max-w-140 mb-16">Our craftsmanship and attention to detail are evident in every project, ensuring long-lasting results that reflect our commitment to excellence.</p>
-          <div className="grid lg:grid-cols-2 gap-20 items-center">
-            <div className="hidden lg:flex rounded-2xl overflow-hidden aspect-3/4 bg-white/5 items-center justify-center">
+          <div className="grid lg:grid-cols-2 gap-20 items-center mt-16">
+            <div className="hidden lg:flex rounded-2xl overflow-hidden aspect-4/3 bg-white/5 items-center justify-center">
               <div className="flex flex-col items-center gap-3 text-white/40 font-mono text-xs">
                 <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5">
                   <rect x="6" y="16" width="36" height="26" rx="2"/><path d="M6 20L24 8l18 12"/><rect x="16" y="28" width="16" height="14"/>
@@ -239,20 +239,20 @@ export function HomeClient() {
       </section>
 
       {/* PROCESS */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-30 bg-gray-50">
         <Container>
-          <div className="text-center mb-14">
+          <div className="mb-14">
             <SectionLabel>How We Work</SectionLabel>
-            <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-tight">Our Construction Process</h2>
-            <p className="text-[17px] text-gray-600 mt-3 max-w-xl mx-auto">A clear, transparent process from first consultation to final handover.</p>
+            <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-[-0.01em] mb-5">Our Construction Process</h2>
+            <p className="text-[17px] text-[#4a5568] leading-[1.7] max-w-140">A structured, transparent process from initial consultation to final handover — ensuring clarity at every step.</p>
           </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8 relative mt-16">
             <div className="hidden lg:block absolute top-8 left-[10%] right-[10%] h-px bg-linear-to-r from-primary to-[#b08800]" />
             {PROCESS_STEPS.map((step) => (
               <div key={step.num} className="relative text-center z-10">
                 <div className="w-16 h-16 rounded-full bg-white border-2 border-primary flex items-center justify-center mx-auto mb-5 font-head text-xl font-extrabold text-primary">{step.num}</div>
                 <h3 className="font-head font-bold text-[16px] mb-2">{step.title}</h3>
-                <p className="text-[13px] text-gray-500 leading-relaxed">{step.desc}</p>
+                <p className="text-[13px] text-[#4a5568] leading-[1.6]">{step.desc}</p>
               </div>
             ))}
           </div>
@@ -260,24 +260,24 @@ export function HomeClient() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
-          <div className="text-center mb-12">
-            <SectionLabel>Client Stories</SectionLabel>
-            <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-tight">What Our Clients Say</h2>
+          <SectionLabel>Client Stories</SectionLabel>
+          <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-[-0.01em] mb-0">What Our Clients Say</h2>
+          <div className="mt-16">
+            <TestimonialsCarousel items={cmsTestimonials} />
           </div>
-          <TestimonialsCarousel items={cmsTestimonials} />
         </Container>
       </section>
 
       {/* CONTACT */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-30 bg-gray-50">
         <Container>
-          <div className="grid lg:grid-cols-2 gap-16">
+          <div className="grid lg:grid-cols-2 gap-20 mt-16">
             <div>
               <SectionLabel>Get In Touch</SectionLabel>
-              <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-tight mb-5">Start Your Project Today</h2>
-              <p className="text-[17px] text-gray-600 leading-relaxed mb-10">Ready to build? Get in touch with our team and we&apos;ll arrange a free consultation.</p>
+              <h2 className="font-head text-[clamp(28px,3.5vw,44px)] font-bold leading-tight tracking-[-0.01em] mb-5">Start Your Project Today</h2>
+              <p className="text-[17px] text-[#4a5568] leading-[1.7] mb-10">Ready to build? Fill in the form below and our team will reach out within 24 hours to schedule a free consultation.</p>
               <div className="flex flex-col gap-8">
                 {[
                   { icon: <svg key="addr" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="#0f2240" strokeWidth="1.8"><path d="M11 2C7.13 2 4 5.13 4 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z"/><circle cx="11" cy="9" r="2.5"/></svg>, label: "Our Office", value: contact.address },
@@ -289,14 +289,14 @@ export function HomeClient() {
                     <div className="w-12 h-12 rounded-[10px] bg-[#eff4fa] flex items-center justify-center shrink-0">{info.icon}</div>
                     <div>
                       <div className="font-head font-bold text-[15px] mb-1">{info.label}</div>
-                      <div className="text-[14px] text-gray-500 whitespace-pre-line">{info.value}</div>
+                      <div className="text-[14px] text-[#4a5568] whitespace-pre-line">{info.value}</div>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="bg-white rounded-2xl border border-gray-200 p-8">
-              <h3 className="font-head font-bold text-xl mb-6">Send Us a Message</h3>
+            <div className="bg-white rounded-2xl border border-[#cdd5e3] p-9">
+              <h3 className="font-head text-[22px] font-extrabold mb-2">Send Us a Message</h3>
               <ContactForm />
             </div>
           </div>

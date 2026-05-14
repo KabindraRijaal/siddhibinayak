@@ -44,16 +44,16 @@ export function StatCard({ num, suffix = "+", label, variant = "dark" }: StatCar
     <div ref={ref} className="text-center">
       <div
         className={cn(
-          "font-head text-4xl font-extrabold leading-none",
+          "font-head text-[48px] font-extrabold leading-none",
           isDark ? "text-white" : "text-primary"
         )}
       >
         {val}
-        <span className={isDark ? "text-gold" : "text-gold"}>{suffix}</span>
+        <span className="text-[#f4b400]">{suffix}</span>
       </div>
       <div
         className={cn(
-          "text-xs font-semibold uppercase tracking-wider mt-2",
+          "text-[13px] font-medium uppercase tracking-[0.08em] mt-2",
           isDark ? "text-white/60" : "text-gray-500"
         )}
       >

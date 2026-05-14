@@ -34,8 +34,8 @@ export function Footer({ cms }: FooterProps) {
   return (
     <footer className="bg-[#111517] pt-20 pb-10">
       <Container>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
-          <div className="lg:col-span-1">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr] gap-8 lg:gap-15 mb-15">
+          <div>
             <div className="flex items-center gap-3 mb-5">
               <Image
                 src="/logo.jpg"

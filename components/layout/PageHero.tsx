@@ -19,8 +19,8 @@ export function PageHero({ breadcrumb, label, title, desc }: PageHeroProps) {
     <section className="pt-[72px] bg-gradient-to-br from-white via-gray-50 to-yellow-50/30 relative overflow-hidden">
       <div className="absolute -top-24 -right-48 w-[600px] h-[600px] rounded-full bg-primary/[0.04] pointer-events-none" />
       <Container>
-        <div className="py-20 relative z-10">
-          <div className="flex items-center gap-2 text-[13px] text-gray-500 mb-6">
+        <div className="pt-20 pb-15 relative z-10">
+          <div className="flex items-center gap-2 text-[13px] text-[#3e4a5e] mb-6">
             {breadcrumb.map((c, i) => (
               <span key={i} className="flex items-center gap-2">
                 {i > 0 && <span className="opacity-40">/</span>}
@@ -35,11 +35,11 @@ export function PageHero({ breadcrumb, label, title, desc }: PageHeroProps) {
             ))}
           </div>
           <SectionLabel>{label}</SectionLabel>
-          <h1 className="font-head text-[clamp(36px,4vw,56px)] font-extrabold leading-[1.1] tracking-tight mb-5">
+          <h1 className="font-head text-[clamp(36px,4vw,56px)] font-extrabold leading-[1.1] tracking-[-0.02em] mb-5">
             {title}
           </h1>
           {desc && (
-            <p className="text-[17px] text-gray-600 leading-relaxed max-w-xl">{desc}</p>
+            <p className="text-[17px] text-[#4a5568] leading-[1.7] max-w-150">{desc}</p>
           )}
         </div>
       </Container>

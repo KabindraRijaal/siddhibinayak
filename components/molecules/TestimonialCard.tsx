@@ -13,16 +13,16 @@ export function TestimonialCard({ quote, name, role, rating = 5 }: TestimonialCa
     .join("");
 
   return (
-    <div className="p-7 bg-gray-50 rounded-2xl border border-gray-200 h-full flex flex-col">
-      <div className="text-gold text-sm tracking-widest mb-3">{"★".repeat(rating)}</div>
-      <p className="italic text-[15px] leading-relaxed mb-5 flex-1">"{quote}"</p>
+    <div className="p-8 bg-[#f8f9fa] rounded-2xl border border-[#cdd5e3] h-full flex flex-col box-border">
+      <div className="text-[#f4b400] text-[18px] tracking-[2px] mb-4">{"★".repeat(rating)}</div>
+      <p className="italic text-[15px] leading-[1.7] text-foreground mb-6 flex-1">{quote}</p>
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center font-head font-bold text-primary text-sm shrink-0">
+        <div className="w-11 h-11 rounded-full bg-[#cdd5e3] flex items-center justify-center font-head font-bold text-primary text-[16px] shrink-0">
           {initials}
         </div>
         <div>
-          <div className="font-head font-bold text-sm">{name}</div>
-          <div className="text-xs text-gray-500">{role}</div>
+          <div className="font-head font-bold text-[15px]">{name}</div>
+          <div className="text-[12px] text-[#4a5568]">{role}</div>
         </div>
       </div>
     </div>

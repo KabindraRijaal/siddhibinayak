@@ -103,7 +103,7 @@ export function ServicesClient() {
         desc={services.pageDesc}
       />
 
-      <section className="py-24 bg-white">
+      <section className="py-30 bg-white">
         <Container>
           <div className="flex flex-col gap-6 mt-0">
             {services.items.map((svc, i) => (

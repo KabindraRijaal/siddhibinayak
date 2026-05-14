@@ -148,7 +148,7 @@ export function ContactClient() {
         desc={contact.pageDesc}
       />
 
-      <section className="py-16 bg-white" style={{ paddingTop: "60px" }}>
+      <section className="py-30 bg-white">
         <Container>
           <div className="grid lg:grid-cols-2 gap-16 mt-10">
             <div className="flex flex-col gap-7">
@@ -194,13 +194,13 @@ export function ContactClient() {
         </div>
       </div>
 
-      <section className="py-16 bg-white" style={{ paddingTop: "60px" }}>
+      <section className="py-30 bg-white">
         <Container>
           <div className="text-[13px] font-semibold tracking-[0.12em] uppercase text-primary mb-3 flex items-center gap-2.5">
             <span className="w-8 h-0.5 bg-primary inline-block" />
             Common Questions
           </div>
-          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-tight mb-12">
+          <h2 className="font-head text-[clamp(26px,3vw,38px)] font-bold leading-tight tracking-[-0.01em] mb-12">
             Frequently Asked Questions
           </h2>
           <div className="flex flex-col gap-3 max-w-3xl">

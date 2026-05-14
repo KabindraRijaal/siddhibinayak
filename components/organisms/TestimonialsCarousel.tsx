@@ -49,30 +49,32 @@ export function TestimonialsCarousel({ items }: TestimonialsCarouselProps) {
         </div>
       </div>
 
-      <div className="flex items-center justify-center gap-4 mt-8">
-        <button
-          onClick={prev}
-          className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-        >
-          <ChevronLeft size={18} />
-        </button>
+      <div className="flex items-center justify-between mt-8">
         <div className="flex gap-2">
           {Array.from({ length: max + 1 }).map((_, i) => (
             <button
               key={i}
               onClick={() => setIdx(i)}
-              className={`h-2 rounded-full transition-all duration-300 ${
-                i === idx ? "w-6 bg-primary" : "w-2 bg-gray-300"
+              className={`h-2 rounded-full transition-all duration-300 border-none cursor-pointer ${
+                i === idx ? "w-6 bg-primary" : "w-2 bg-[#cdd5e3]"
               }`}
             />
           ))}
         </div>
-        <button
-          onClick={next}
-          className="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center hover:border-primary hover:text-primary transition-colors"
-        >
-          <ChevronRight size={18} />
-        </button>
+        <div className="flex gap-3">
+          <button
+            onClick={prev}
+            className="w-11 h-11 rounded-full border-[1.5px] border-[#cdd5e3] bg-white flex items-center justify-center text-[18px] text-foreground hover:bg-primary hover:border-primary hover:text-white transition-all duration-200"
+          >
+            <ChevronLeft size={18} />
+          </button>
+          <button
+            onClick={next}
+            className="w-11 h-11 rounded-full border-[1.5px] border-[#cdd5e3] bg-white flex items-center justify-center text-[18px] text-foreground hover:bg-primary hover:border-primary hover:text-white transition-all duration-200"
+          >
+            <ChevronRight size={18} />
+          </button>
+        </div>
       </div>
     </div>
   );
