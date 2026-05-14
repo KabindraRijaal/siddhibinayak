@@ -17,6 +17,10 @@
 /.next/
 /out/
 
+# CMS content (server-managed, not checked into git)
+/data/
+/public/uploads/
+
 # production
 /build
 

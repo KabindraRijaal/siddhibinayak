@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "@/components/atoms/Container";
+import type { CmsState } from "@/lib/cms-types";
 
 const COMPANY_LINKS = [
   { label: "About Us", url: "/about" },
@@ -17,7 +18,19 @@ const SERVICE_LINKS = [
   { label: "Civil Works", url: "/services#civil" },
 ];
 
-export function Footer() {
+interface FooterProps {
+  cms?: CmsState;
+}
+
+export function Footer({ cms }: FooterProps) {
+  const brandName = cms?.settings.brandName ?? "Siddhibinayak";
+  const address = cms?.contact.address ?? "Main Road, Baglung-04\nBaglung District, Nepal";
+  const phone = cms?.contact.phone1 ?? "+977 68-XXXXXX";
+  const email = cms?.contact.email1 ?? "info@siddhibinayak.com.np";
+  const hours = cms?.contact.hours ?? "Sun–Fri: 9am – 6pm";
+  const facebook = cms?.settings.facebook ?? "#";
+  const instagram = cms?.settings.instagram ?? "#";
+  const youtube = cms?.settings.youtube ?? "#";
   return (
     <footer className="bg-[#111517] pt-20 pb-10">
       <Container>
@@ -26,14 +39,14 @@ export function Footer() {
             <div className="flex items-center gap-3 mb-5">
               <Image
                 src="/logo.jpg"
-                alt="Siddhibinayak Nirman Sewa"
+                alt={brandName}
                 width={48}
                 height={48}
                 className="rounded-full object-contain bg-white border border-white/20 p-0.5"
               />
               <div>
                 <div className="font-head font-extrabold text-white text-[18px] leading-tight">
-                  Siddhibinayak
+                  {brandName}
                 </div>
                 <div className="text-[11px] uppercase tracking-widest text-white/40 font-medium">
                   Nirman Sewa
@@ -44,13 +57,19 @@ export function Footer() {
               Building your vision into reality. Professional construction services in Baglung, Nepal since 2009.
             </p>
             <div className="flex gap-3">
-              {["f", "in", "yt"].map((s) => (
+              {[
+                { key: "f", href: facebook },
+                { key: "in", href: instagram },
+                { key: "yt", href: youtube },
+              ].map((s) => (
                 <a
-                  key={s}
-                  href="#"
+                  key={s.key}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-9 h-9 rounded-lg bg-white/8 flex items-center justify-center text-white/50 hover:bg-primary hover:text-white transition-all text-xs font-bold uppercase"
                 >
-                  {s}
+                  {s.key}
                 </a>
               ))}
             </div>
@@ -95,14 +114,14 @@ export function Footer() {
               Contact
             </h4>
             <div className="flex flex-col gap-3 text-sm text-white/70">
-              <div>📍 Main Road, Baglung-04<br />Baglung District, Nepal</div>
-              <a href="tel:+97768XXXXXX" className="hover:text-gold transition-colors">
-                📞 +977 68-XXXXXX
+              <div className="whitespace-pre-line">📍 {address.split("\n").slice(0, 2).join("\n")}</div>
+              <a href={`tel:${phone.replace(/\s/g, "")}`} className="hover:text-gold transition-colors">
+                📞 {phone}
               </a>
-              <a href="mailto:info@siddhibinayak.com.np" className="hover:text-gold transition-colors">
-                ✉️ info@siddhibinayak.com.np
+              <a href={`mailto:${email}`} className="hover:text-gold transition-colors">
+                ✉️ {email}
               </a>
-              <div>🕐 Sun–Fri: 9am – 6pm</div>
+              <div>🕐 {hours.split("\n")[0]}</div>
             </div>
           </div>
         </div>

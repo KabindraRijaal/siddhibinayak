@@ -3,6 +3,7 @@ import { Manrope, Work_Sans, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { QuoteModalProvider } from "@/components/organisms/QuoteModal";
 import { Toaster } from "@/components/ui/sonner";
+import { CmsPreviewProvider } from "@/lib/cms-preview";
 
 const manrope = Manrope({
   variable: "--font-head",
@@ -38,10 +39,12 @@ export default function RootLayout({
       className={`${manrope.variable} ${workSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <QuoteModalProvider>
-          {children}
-          <Toaster richColors position="bottom-center" />
-        </QuoteModalProvider>
+        <CmsPreviewProvider>
+          <QuoteModalProvider>
+            {children}
+            <Toaster richColors position="bottom-center" />
+          </QuoteModalProvider>
+        </CmsPreviewProvider>
       </body>
     </html>
   );

@@ -2,158 +2,21 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import { DEFAULTS } from "@/lib/cms-types";
+import type { CmsState } from "@/lib/cms-types";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
-interface StatItem { num: string; suffix: string; label: string; }
-interface ServiceItem { title: string; desc: string; price: string; priceLabel: string; features: string[] | string; }
-interface Project { name: string; category: string; location: string; year: string; area: string; desc: string; featured: boolean; image: string; }
-interface Testimonial { name: string; role: string; quote: string; }
-interface TeamMember { name: string; role: string; initials: string; image: string; }
-interface FaqItem { q: string; a: string; }
-interface TimelineItem { year: string; title: string; desc: string; }
-interface NavItem { label: string; url: string; }
-
-interface CmsState {
-  home: { heroLabel: string; heroTitle1: string; heroTitle2: string; heroTitle3: string; heroDesc: string; heroPrimaryCta: string; heroSecondaryCta: string; heroBadge: string; heroImage: string; stats: StatItem[]; aboutTitle: string; aboutP1: string; aboutP2: string; aboutImage: string; finalCtaTitle: string; finalCtaDesc: string; finalCtaBtn: string; };
-  services: { pageTitle: string; pageDesc: string; items: ServiceItem[]; };
-  about: { pageTitle: string; pageDesc: string; storyP1: string; storyP2: string; storyP3: string; mission: string; vision: string; values: string; };
-  contact: { pageTitle: string; pageDesc: string; address: string; email1: string; email2: string; phone1: string; phone2: string; hours: string; };
-  projects: Project[];
-  testimonials: Testimonial[];
-  team: TeamMember[];
-  faqs: FaqItem[];
-  timeline: TimelineItem[];
-  settings: { brandName: string; tagline: string; siteUrl: string; metaDesc: string; facebook: string; instagram: string; youtube: string; };
-  brand: { primary: string; primaryDark: string; secondary: string; fontHead: string; fontBody: string; };
-  navigation: NavItem[];
-}
-
-const DEFAULTS: CmsState = {
-  home: {
-    heroLabel: "Baglung, Nepal",
-    heroTitle1: "Building",
-    heroTitle2: "Your Vision",
-    heroTitle3: "Into Reality",
-    heroDesc: "From architectural design to complete construction — Siddhibinayak delivers premium craftsmanship rooted in Nepali heritage and modern precision. Your dream space, built to last.",
-    heroPrimaryCta: "Start Your Project →",
-    heroSecondaryCta: "View Our Work",
-    heroBadge: "15+ Years Experience",
-    heroImage: "",
-    stats: [
-      { num: "200", suffix: "+", label: "Projects Completed" },
-      { num: "180", suffix: "+", label: "Happy Clients" },
-      { num: "45", suffix: "+", label: "Team Members" },
-      { num: "17", suffix: "+", label: "Years in Baglung" }
-    ],
-    aboutTitle: "Baglung's Trusted Partner in Modern Construction",
-    aboutP1: "For over a decade and a half, Siddhibinayak Nirman Sewa has been shaping Baglung's skyline — combining traditional Nepali craftsmanship with engineering precision to create spaces that endure for generations.",
-    aboutP2: "Our team of architects, engineers, and skilled craftsmen approach each project with the same dedication, whether it's a family home in Tara Khola or a commercial complex on Main Road.",
-    aboutImage: "",
-    finalCtaTitle: "Ready to Build Something Extraordinary?",
-    finalCtaDesc: "Join 200+ satisfied clients across Baglung and Gandaki Province who trusted Siddhibinayak to bring their vision to life.",
-    finalCtaBtn: "Schedule Free Consultation →"
-  },
-  services: {
-    pageTitle: "End-to-End Construction Services in Baglung",
-    pageDesc: "From the first sketch to the final handover key — Siddhibinayak delivers complete construction and design solutions for residential, commercial, and civil projects across the Gandaki Province.",
-    items: [
-      { title: "Residential Construction", desc: "Custom homes, villas, and apartments crafted to your lifestyle.", price: "From NPR 2,200/sqft", priceLabel: "Standard residential builds", features: ["Custom architectural design","Seismic-resistant RCC construction","MEP works","Premium interior finishing","Landscaping","Permits"] },
-      { title: "Architectural Design", desc: "Detailed blueprints, 3D renders, and structural plans.", price: "From NPR 80/sqft", priceLabel: "Full design package", features: ["Concept design","Floor plans and elevations","3D walkthroughs","Working drawings","Structural calculations","Bylaw compliance"] },
-      { title: "Interior Design", desc: "Harmonious interiors that reflect your personality.", price: "From NPR 1,500/sqft", priceLabel: "Full interior fit-out", features: ["Space planning","Material selection","Custom furniture","Lighting design","Soft furnishings","Project supervision"] },
-      { title: "Commercial Projects", desc: "Office complexes, hotels, and retail spaces.", price: "From NPR 3,000/sqft", priceLabel: "Commercial construction", features: ["Multi-storey buildings","Retail fit-out","Hotel construction","Office towers","Mixed-use complexes","Code compliance"] }
-    ]
-  },
-  about: {
-    pageTitle: "Built on Trust, Crafted with Heart",
-    pageDesc: "For 17 years, Siddhibinayak has shaped Baglung's skyline — combining traditional Nepali craftsmanship with engineering precision.",
-    storyP1: "Founded in 2009 by a small group of engineers and architects who shared a vision for building responsibly in Nepal, Siddhibinayak began with a single residential project in Tara Khola, Baglung.",
-    storyP2: "What started as a 4-person studio has grown into a 45-strong team of architects, engineers, project managers, and skilled craftsmen — completing over 200 projects.",
-    storyP3: "Today, we remain rooted in the same values that started us: deep respect for Nepali architectural heritage, uncompromising quality, and genuine care for every client.",
-    mission: "To deliver exceptional construction services that exceed client expectations through quality craftsmanship, sustainable practices, and transparent partnerships.",
-    vision: "To be the most trusted design and construction partner in Nepal — setting the benchmark for quality, innovation, and cultural sensitivity.",
-    values: "Integrity, craftsmanship, sustainability, and respect — for our clients, our craft, our heritage, and the land on which we build."
-  },
-  contact: {
-    pageTitle: "Let's Build Something Together",
-    pageDesc: "Whether you're planning a new home, a commercial project, or a heritage restoration — we'd love to hear about your vision.",
-    address: "Main Road, Baglung-04\nBaglung District, Gandaki Province\nNepal 33700",
-    email1: "info@siddhibinayak.com.np",
-    email2: "design@siddhibinayak.com.np",
-    phone1: "+977 68-520000",
-    phone2: "+977 98XXXXXXXX",
-    hours: "Sunday – Friday: 9:00 AM – 6:00 PM\nSaturday: 10:00 AM – 2:00 PM"
-  },
-  projects: [
-    { name: "Tara Khola Villa", category: "Residential", location: "Tara Khola, Baglung", year: "2024", area: "4,200 sqft", desc: "A flagship luxury residence overlooking Kali Gandaki River.", featured: true, image: "" },
-    { name: "Himalaya Business Hub", category: "Commercial", location: "Baglung Bazaar", year: "2023", area: "28,000 sqft", desc: "Landmark 8-storey commercial complex.", featured: false, image: "" },
-    { name: "Mountain View Suites", category: "Hospitality", location: "Sarangkot Road", year: "2024", area: "16,500 sqft", desc: "Boutique hotel with panoramic Annapurna views.", featured: false, image: "" },
-    { name: "Newari Heritage Home", category: "Renovation", location: "Old Bazaar, Baglung", year: "2023", area: "3,400 sqft", desc: "Sensitive restoration of a 60-year-old Newari home.", featured: false, image: "" },
-    { name: "Kali Gandaki Restaurant & Bar", category: "Interior", location: "Baglung Bazaar", year: "2024", area: "2,800 sqft", desc: "Himalayan-inspired hospitality interior.", featured: false, image: "" },
-    { name: "Seti Gandaki Bridge Approach", category: "Civil Works", location: "Bhakunde Beni, Baglung", year: "2022", area: "380m bridge", desc: "Bridge approach earthworks and retaining structures.", featured: false, image: "" }
-  ],
-  testimonials: [
-    { name: "Rajesh Kumar Sharma", role: "Residential Client, Tara Khola", quote: "Siddhibinayak transformed our family's dream home into a stunning reality. The team's attention to detail was extraordinary." },
-    { name: "Sunita Pradhan", role: "Hotel Owner, Bagar", quote: "We entrusted Siddhibinayak with our boutique hotel project and they exceeded every expectation." },
-    { name: "Binod Thapa", role: "Heritage Home Owner, Old Bazaar", quote: "The renovation of our heritage home was handled with such sensitivity and expertise." },
-    { name: "Anita Rana", role: "Commercial Developer, Baglung Bazaar", quote: "From the initial consultation to final handover, the Siddhibinayak team was communicative and professional." },
-    { name: "Kamal Gurung", role: "Wellness Center Owner, Damside", quote: "The wellness center Siddhibinayak built for us has received glowing reviews from every guest." }
-  ],
-  team: [
-    { name: "Ramesh Subedi", role: "Founder & Principal Architect", initials: "RS", image: "" },
-    { name: "Priya Gurung", role: "Head of Design", initials: "PG", image: "" },
-    { name: "Dipak Thapa", role: "Senior Structural Engineer", initials: "DT", image: "" },
-    { name: "Sarita Poudel", role: "Project Manager", initials: "SP", image: "" }
-  ],
-  faqs: [
-    { q: "How long does a typical residential project take?", a: "A standard 3-storey home takes approximately 12–18 months from groundbreaking to handover." },
-    { q: "Do you handle government approvals and permits?", a: "Yes — we manage all municipal approvals, building permits, and bylaw compliance." },
-    { q: "What is your payment structure?", a: "Milestone-based: design 15%, foundation 20%, structure 35%, finishing 20%, handover 10%." },
-    { q: "Do you offer post-completion warranty?", a: "Yes — 12-month defects liability and 5-year structural warranty on RCC works." },
-    { q: "Can I visit one of your completed projects?", a: "Absolutely — with prior arrangement and client consent we organise site visits." },
-    { q: "Do you work outside Baglung?", a: "Primarily across the Gandaki Province; for larger projects we work as far as Kathmandu." }
-  ],
-  timeline: [
-    { year: "2009", title: "Siddhibinayak Founded", desc: "Established as a small architectural studio in Tara Khola, Baglung with a team of four." },
-    { year: "2013", title: "First Commercial Project", desc: "Completed our first multi-storey commercial building — Himalaya Plaza." },
-    { year: "2016", title: "Post-Earthquake Recovery", desc: "Led seismic retrofit programs across 12 schools and community buildings." },
-    { year: "2019", title: "100th Project Milestone", desc: "Crossed 100 completed projects across all categories." },
-    { year: "2023", title: "Heritage Restoration Award", desc: "Recognised for the restoration of a 60-year-old Newari home." },
-    { year: "2026", title: "200+ Projects, 17 Years Strong", desc: "A team of 45, over 200 projects delivered." }
-  ],
-  settings: {
-    brandName: "Siddhibinayak",
-    tagline: "Design & Construction",
-    siteUrl: "https://siddhibinayak.com.np",
-    metaDesc: "Premium design & construction services in Baglung, Nepal.",
-    facebook: "https://facebook.com/siddhibinayak",
-    instagram: "https://instagram.com/siddhibinayak",
-    youtube: "https://youtube.com/@siddhibinayak"
-  },
-  brand: {
-    primary: "#0f2240",
-    primaryDark: "#0a1733",
-    secondary: "#505f77",
-    fontHead: "Manrope",
-    fontBody: "Work Sans"
-  },
-  navigation: [
-    { label: "Services", url: "/services" },
-    { label: "About", url: "/about" },
-    { label: "Projects", url: "/projects" },
-    { label: "Process", url: "/#process" },
-    { label: "Contact", url: "/contact" }
-  ]
-};
-
+// ─── localStorage cache key (for live-preview debounce only) ─────────────────
 const CMS_KEY = "siddhibinayak_cms";
 
 function deepMerge(target: Record<string, unknown>, source: Record<string, unknown>): Record<string, unknown> {
   const result = { ...target };
   for (const k in source) {
-    if (source[k] && typeof source[k] === "object" && !Array.isArray(source[k])) {
-      result[k] = deepMerge((target[k] as Record<string, unknown>) || {}, source[k] as Record<string, unknown>);
-    } else {
-      result[k] = source[k];
+    const sv = source[k];
+    const tv = target[k];
+    if (sv !== null && typeof sv === "object" && !Array.isArray(sv) && typeof tv === "object" && !Array.isArray(tv)) {
+      result[k] = deepMerge(tv as Record<string, unknown>, sv as Record<string, unknown>);
+    } else if (sv !== undefined) {
+      result[k] = sv;
     }
   }
   return result;
@@ -178,7 +41,7 @@ function setNested(obj: Record<string, unknown>, path: string, value: unknown): 
     const k = keys[i];
     const idx = Number(k);
     const key = isNaN(idx) ? k : idx;
-    const next = Array.isArray(cur[key]) ? [...(cur[key] as unknown[])] : { ...(cur[key] as Record<string, unknown>) };
+    const next = Array.isArray(cur[key as string]) ? [...(cur[key as string] as unknown[])] : { ...(cur[key as string] as Record<string, unknown>) };
     cur[key as string] = next;
     cur = next as Record<string, unknown>;
   }
@@ -237,40 +100,71 @@ function FieldTextarea({ label, path, hint, large, state, onChange }: { label: s
   );
 }
 
-function ImgUploader({ label, path, state, onChange }: { label: string; path: string; state: CmsState; onChange: (path: string, val: unknown) => void; }) {
+function ImgUploader({ label, path, imageId, state, onChange }: {
+  label: string;
+  path: string;
+  imageId: string;
+  state: CmsState;
+  onChange: (path: string, val: unknown) => void;
+}) {
   const val = String(getNested(state, path) ?? "");
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
+  const [uploading, setUploading] = useState(false);
 
-  function handleFile(file: File) {
-    const r = new FileReader();
-    r.onload = () => onChange(path, r.result as string);
-    r.readAsDataURL(file);
+  async function handleFile(file: File) {
+    if (!file.type.startsWith("image/")) return;
+    if (file.size > 5 * 1024 * 1024) {
+      alert("Image too large — max 5MB");
+      return;
+    }
+    setUploading(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", file);
+      const res = await fetch(`/api/cms/images/${imageId}`, { method: "POST", body: fd });
+      if (!res.ok) throw new Error(await res.text());
+      const { url } = await res.json() as { url: string };
+      onChange(path, url);
+    } catch (e) {
+      alert("Upload failed: " + String(e));
+    } finally {
+      setUploading(false);
+    }
+  }
+
+  async function handleClear() {
+    await fetch(`/api/cms/images/${imageId}`, { method: "DELETE" });
+    onChange(path, "");
   }
 
   return (
     <div className="mb-[22px]">
       <div className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#6b7280] mb-2">{label}</div>
       <div
-        className={`border-2 border-dashed rounded-[10px] p-[18px] flex gap-[14px] items-center bg-[#fafafa] cursor-pointer transition-all ${dragging ? "border-[#0f2240] bg-[#eff4fa]" : "border-[#e5e7eb] hover:border-[#0f2240] hover:bg-[#eff4fa]"}`}
+        className={`border-2 border-dashed rounded-[10px] p-[18px] flex gap-[14px] items-center bg-[#fafafa] cursor-pointer transition-all ${dragging ? "border-[#0f2240] bg-[#eff4fa]" : "border-[#e5e7eb] hover:border-[#0f2240] hover:bg-[#eff4fa]"} ${uploading ? "opacity-60 pointer-events-none" : ""}`}
         onClick={() => inputRef.current?.click()}
         onDragOver={e => { e.preventDefault(); setDragging(true); }}
         onDragLeave={() => setDragging(false)}
-        onDrop={e => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f?.type.startsWith("image/")) handleFile(f); }}
+        onDrop={e => { e.preventDefault(); setDragging(false); const f = e.dataTransfer.files[0]; if (f) handleFile(f); }}
       >
         <div
           className="w-[84px] h-[60px] rounded-[6px] bg-[#e5e7eb] shrink-0 flex items-center justify-center text-[9px] font-mono text-[#6b7280] bg-cover bg-center"
           style={val ? { backgroundImage: `url('${val}')` } : {}}
         >
-          {!val && "no image"}
+          {!val && (uploading ? "…" : "no image")}
         </div>
         <div className="flex-1 min-w-0">
-          <div className="text-[13px] font-semibold mb-0.5 break-all">{val ? "Image set" : "Drop image or click to upload"}</div>
-          <div className="text-[11px] text-[#6b7280]">JPG, PNG, WebP · max 5MB</div>
+          <div className="text-[13px] font-semibold mb-0.5 break-all">
+            {uploading ? "Uploading…" : val ? "Image set" : "Drop image or click to upload"}
+          </div>
+          <div className="text-[11px] text-[#6b7280]">
+            {val ? val : "JPG, PNG, WebP · max 5MB"}
+          </div>
         </div>
         <button
           className="bg-white border border-[#e5e7eb] px-[12px] py-[6px] rounded-[6px] text-[11px] font-bold font-[Manrope,sans-serif] cursor-pointer shrink-0"
-          onClick={e => { e.stopPropagation(); onChange(path, ""); }}
+          onClick={e => { e.stopPropagation(); handleClear(); }}
         >Clear</button>
         <input ref={inputRef} type="file" accept="image/*" hidden onChange={e => { const f = e.target.files?.[0]; if (f) handleFile(f); }} />
       </div>
@@ -281,10 +175,10 @@ function ImgUploader({ label, path, state, onChange }: { label: string; path: st
 function RepeaterCard({ title, hint, children, onDelete }: { title: string; hint?: string; children: React.ReactNode; onDelete?: () => void; }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`border border-[#e5e7eb] rounded-[10px] bg-white overflow-hidden ${open ? "" : ""}`}>
+    <div className="border border-[#e5e7eb] rounded-[10px] bg-white overflow-hidden">
       <div
-        className="px-[14px] py-[12px] flex items-center gap-[10px] cursor-pointer bg-[#fafafa] border-b border-transparent hover:bg-[#f3f4f6] transition-colors"
-        style={open ? { borderBottomColor: "#e5e7eb" } : {}}
+        className="px-[14px] py-[12px] flex items-center gap-[10px] cursor-pointer bg-[#fafafa] hover:bg-[#f3f4f6] transition-colors"
+        style={open ? { borderBottom: "1px solid #e5e7eb" } : {}}
         onClick={() => setOpen(!open)}
       >
         <span className="text-[#6b7280] cursor-grab font-mono text-[13px]">⋮⋮</span>
@@ -316,7 +210,7 @@ function EditorHome({ state, onChange }: { state: CmsState; onChange: (path: str
       <FieldInput label="Primary Button" path="home.heroPrimaryCta" state={state} onChange={onChange} />
       <FieldInput label="Secondary Button" path="home.heroSecondaryCta" state={state} onChange={onChange} />
       <FieldInput label="Floating Badge" path="home.heroBadge" state={state} onChange={onChange} />
-      <ImgUploader label="Hero Image" path="home.heroImage" state={state} onChange={onChange} />
+      <ImgUploader label="Hero Image" path="home.heroImage" imageId="hero-main" state={state} onChange={onChange} />
 
       <div className="mb-[22px] mt-8"><div className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#6b7280]">Stats Banner</div></div>
       <div className="flex flex-col gap-[10px]">
@@ -333,7 +227,7 @@ function EditorHome({ state, onChange }: { state: CmsState; onChange: (path: str
       <FieldInput label="Section Title" path="home.aboutTitle" state={state} onChange={onChange} />
       <FieldTextarea label="Paragraph 1" path="home.aboutP1" state={state} onChange={onChange} />
       <FieldTextarea label="Paragraph 2" path="home.aboutP2" state={state} onChange={onChange} />
-      <ImgUploader label="About Image" path="home.aboutImage" state={state} onChange={onChange} />
+      <ImgUploader label="About Section Image" path="home.aboutImage" imageId="about-preview" state={state} onChange={onChange} />
 
       <div className="mb-[22px] mt-8"><div className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#6b7280]">Final CTA Banner</div></div>
       <FieldInput label="Heading" path="home.finalCtaTitle" state={state} onChange={onChange} />
@@ -375,7 +269,7 @@ function EditorProjects({ state, onChange, onAddItem, onRemoveItem }: { state: C
     <div className="p-[24px_28px]">
       <div className="flex flex-col gap-[10px]">
         {state.projects.map((p, i) => (
-          <RepeaterCard key={i} title={`${p.name}${p.featured ? " ⭐" : ""}`} hint={p.category} onDelete={() => onRemoveItem("projects", i)}>
+          <RepeaterCard key={p.id} title={`${p.name}${p.featured ? " ⭐" : ""}`} hint={p.category} onDelete={() => onRemoveItem("projects", i)}>
             <FieldInput label="Name" path={`projects.${i}.name`} state={state} onChange={onChange} />
             <div className="mb-[22px]">
               <div className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#6b7280] mb-2">Category</div>
@@ -397,11 +291,17 @@ function EditorProjects({ state, onChange, onAddItem, onRemoveItem }: { state: C
                 Featured (large card on homepage)
               </label>
             </div>
-            <ImgUploader label="Project Image" path={`projects.${i}.image`} state={state} onChange={onChange} />
+            <ImgUploader label="Project Image" path={`projects.${i}.image`} imageId={p.id} state={state} onChange={onChange} />
           </RepeaterCard>
         ))}
       </div>
-      <button className="mt-[10px] w-full py-[12px] border-[1.5px] border-dashed border-[#e5e7eb] rounded-[10px] text-[13px] font-bold text-[#6b7280] font-[Manrope,sans-serif] cursor-pointer hover:border-[#0f2240] hover:text-[#0f2240] hover:bg-[#eff4fa] transition-all" onClick={() => onAddItem("projects", { name: "New Project", category: "Residential", location: "", year: "2026", area: "", desc: "", featured: false, image: "" })}>+ Add Project</button>
+      <button
+        className="mt-[10px] w-full py-[12px] border-[1.5px] border-dashed border-[#e5e7eb] rounded-[10px] text-[13px] font-bold text-[#6b7280] font-[Manrope,sans-serif] cursor-pointer hover:border-[#0f2240] hover:text-[#0f2240] hover:bg-[#eff4fa] transition-all"
+        onClick={() => {
+          const newId = `project-${Date.now()}`;
+          onAddItem("projects", { id: newId, name: "New Project", category: "Residential", location: "", year: "2026", area: "", desc: "", featured: false, image: "" });
+        }}
+      >+ Add Project</button>
     </div>
   );
 }
@@ -415,6 +315,7 @@ function EditorAbout({ state, onChange }: { state: CmsState; onChange: (path: st
       <FieldTextarea label="Paragraph 1" path="about.storyP1" state={state} onChange={onChange} />
       <FieldTextarea label="Paragraph 2" path="about.storyP2" state={state} onChange={onChange} />
       <FieldTextarea label="Paragraph 3" path="about.storyP3" state={state} onChange={onChange} />
+      <ImgUploader label="Story Image" path="about.storyImage" imageId="about-story" state={state} onChange={onChange} />
       <div className="mb-[22px] mt-6"><div className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#6b7280]">Pillars</div></div>
       <FieldTextarea label="Mission" path="about.mission" state={state} onChange={onChange} />
       <FieldTextarea label="Vision" path="about.vision" state={state} onChange={onChange} />
@@ -464,11 +365,17 @@ function EditorTeam({ state, onChange, onAddItem, onRemoveItem }: { state: CmsSt
             <FieldInput label="Full Name" path={`team.${i}.name`} state={state} onChange={onChange} />
             <FieldInput label="Role" path={`team.${i}.role`} state={state} onChange={onChange} />
             <FieldInput label="Initials (fallback)" path={`team.${i}.initials`} state={state} onChange={onChange} />
-            <ImgUploader label="Profile Photo" path={`team.${i}.image`} state={state} onChange={onChange} />
+            <ImgUploader label="Profile Photo" path={`team.${i}.image`} imageId={m.imageId} state={state} onChange={onChange} />
           </RepeaterCard>
         ))}
       </div>
-      <button className="mt-[10px] w-full py-[12px] border-[1.5px] border-dashed border-[#e5e7eb] rounded-[10px] text-[13px] font-bold text-[#6b7280] font-[Manrope,sans-serif] cursor-pointer hover:border-[#0f2240] hover:text-[#0f2240] hover:bg-[#eff4fa] transition-all" onClick={() => onAddItem("team", { name: "", role: "", initials: "", image: "" })}>+ Add Team Member</button>
+      <button
+        className="mt-[10px] w-full py-[12px] border-[1.5px] border-dashed border-[#e5e7eb] rounded-[10px] text-[13px] font-bold text-[#6b7280] font-[Manrope,sans-serif] cursor-pointer hover:border-[#0f2240] hover:text-[#0f2240] hover:bg-[#eff4fa] transition-all"
+        onClick={() => {
+          const id = `team-${Date.now()}`;
+          onAddItem("team", { name: "", role: "", initials: "", image: "", imageId: id });
+        }}
+      >+ Add Team Member</button>
     </div>
   );
 }
@@ -568,7 +475,7 @@ const PAGE_URL_MAP: Record<PageKey, string> = {
   home: "/", services: "/services", projects: "/projects",
   about: "/about", contact: "/contact", testimonials: "/",
   team: "/about", faqs: "/contact", timeline: "/about",
-  settings: "/", brand: "/", navigation: "/"
+  settings: "/", brand: "/", navigation: "/",
 };
 
 const PAGE_META: Record<PageKey, { crumb: string; title: string; sub: string; }> = {
@@ -583,59 +490,59 @@ const PAGE_META: Record<PageKey, { crumb: string; title: string; sub: string; }>
   timeline: { crumb: "Library › Timeline", title: "Company Timeline", sub: "Manage milestone entries" },
   settings: { crumb: "Global › Site Settings", title: "Site Settings", sub: "Brand info, social links, SEO" },
   brand: { crumb: "Global › Brand", title: "Brand & Colors", sub: "Primary palette and typography" },
-  navigation: { crumb: "Global › Navigation", title: "Main Navigation", sub: "Menu items and links" }
+  navigation: { crumb: "Global › Navigation", title: "Main Navigation", sub: "Menu items and links" },
 };
 
 // ─── Main CRM Page ────────────────────────────────────────────────────────────
 export default function CrmPage() {
   const [state, setState] = useState<CmsState>(loadState);
   const [dirty, setDirtyState] = useState(false);
+  const [saving, setSaving] = useState(false);
   const [currentPage, setCurrentPage] = useState<PageKey>("home");
   const [viewport, setViewport] = useState<"desktop" | "tablet" | "mobile">("desktop");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [previewMode, setPreviewMode] = useState(false);
   const [toast, setToast] = useState<{ msg: string; show: boolean }>({ msg: "", show: false });
   const iframeRef = useRef<HTMLIFrameElement>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Load from server on mount
+  useEffect(() => {
+    fetch("/api/cms")
+      .then(r => r.json())
+      .then((data: CmsState) => {
+        setState(data);
+        localStorage.setItem(CMS_KEY, JSON.stringify(data));
+      })
+      .catch(() => {/* keep loadState() default */});
+  }, []);
 
   const showToast = useCallback((msg: string) => {
     setToast({ msg, show: true });
     setTimeout(() => setToast(t => ({ ...t, show: false })), 2400);
   }, []);
 
-  const refreshPreview = useCallback(() => {
-    try {
-      iframeRef.current?.contentWindow?.postMessage({ type: "cms:update", state }, "*");
-    } catch {}
-  }, [state]);
-
   const persist = useCallback((s: CmsState) => {
     localStorage.setItem(CMS_KEY, JSON.stringify(s));
-    setDirtyState(false);
-    // trigger iframe reload after short delay
-    setTimeout(() => {
-      if (iframeRef.current) {
-        iframeRef.current.src = iframeRef.current.src;
-      }
-    }, 100);
   }, []);
 
   const handleChange = useCallback((path: string, val: unknown) => {
     setState(prev => {
       const next = setNested(prev as unknown as Record<string, unknown>, path, val) as unknown as CmsState;
       setDirtyState(true);
-      if (debounceRef.current) clearTimeout(debounceRef.current);
-      debounceRef.current = setTimeout(() => refreshPreview(), 400);
+      persist(next);
+      iframeRef.current?.contentWindow?.postMessage({ type: "cms-preview-update", cms: next }, "*");
       return next;
     });
-  }, [refreshPreview]);
+  }, [persist]);
 
   const handleAddItem = useCallback((path: string, item: unknown) => {
     setState(prev => {
-      const arr = [...(getNested(prev, path) as unknown[])] ;
+      const arr = [...(getNested(prev, path) as unknown[])];
       arr.push(item);
       const next = setNested(prev as unknown as Record<string, unknown>, path, arr) as unknown as CmsState;
       persist(next);
+      setDirtyState(true);
+      iframeRef.current?.contentWindow?.postMessage({ type: "cms-preview-update", cms: next }, "*");
       return next;
     });
   }, [persist]);
@@ -646,13 +553,28 @@ export default function CrmPage() {
       arr.splice(i, 1);
       const next = setNested(prev as unknown as Record<string, unknown>, path, arr) as unknown as CmsState;
       persist(next);
+      setDirtyState(true);
+      iframeRef.current?.contentWindow?.postMessage({ type: "cms-preview-update", cms: next }, "*");
       return next;
     });
   }, [persist]);
 
-  const handleSaveAll = () => {
-    persist(state);
-    showToast("✓ Published — changes are now live");
+  const handleSaveAll = async () => {
+    setSaving(true);
+    try {
+      const res = await fetch("/api/cms", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(state),
+      });
+      if (!res.ok) throw new Error(await res.text());
+      setDirtyState(false);
+      showToast("✓ Published — changes are now live");
+    } catch (e) {
+      showToast("✗ Save failed: " + String(e));
+    } finally {
+      setSaving(false);
+    }
   };
 
   const handleExport = () => {
@@ -671,7 +593,6 @@ export default function CrmPage() {
 
   const previewUrl = PAGE_URL_MAP[currentPage];
   const meta = PAGE_META[currentPage];
-
   const iframeMaxWidth = viewport === "mobile" ? "390px" : viewport === "tablet" ? "768px" : "100%";
 
   const sideNav = (items: { page: PageKey; icon: React.ReactNode; label: string; count?: number | string; }[]) =>
@@ -708,7 +629,6 @@ export default function CrmPage() {
     }
   };
 
-  // Warn on unsaved changes
   useEffect(() => {
     const handler = (e: BeforeUnloadEvent) => { if (dirty) { e.preventDefault(); e.returnValue = ""; } };
     window.addEventListener("beforeunload", handler);
@@ -723,9 +643,7 @@ export default function CrmPage() {
         {/* Mobile menu btn */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
-          className={`hidden sm:hidden items-center justify-center w-9 h-9 rounded-[6px] border shrink-0 transition-all ${sidebarOpen ? "bg-[#0f2240] border-[#0f2240]" : "bg-white/[0.08] border-white/[0.12] hover:bg-white/[0.16]"}`}
-          style={{ display: "none" }}
-          id="navToggleMobile"
+          className={`md:hidden inline-flex items-center justify-center w-9 h-9 rounded-[6px] border shrink-0 transition-all ${sidebarOpen ? "bg-[#0f2240] border-[#0f2240]" : "bg-white/[0.08] border-white/[0.12] hover:bg-white/[0.16]"}`}
           aria-label="Menu"
         >
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2" className="w-[18px] h-[18px]"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
@@ -743,7 +661,7 @@ export default function CrmPage() {
         <div className="flex-1" />
 
         {/* Save status */}
-        <div className="text-[12px] text-white/50 flex items-center gap-2">
+        <div className="text-[12px] text-white/50 items-center gap-2 hidden sm:flex">
           <span className={`w-2 h-2 rounded-full ${dirty ? "bg-[#fbbf24] shadow-[0_0_8px_#fbbf24]" : "bg-[#34d399] shadow-[0_0_8px_#34d399]"}`} />
           <span>{dirty ? "Unsaved changes" : "All changes saved"}</span>
         </div>
@@ -755,16 +673,31 @@ export default function CrmPage() {
         <button onClick={handleExport} className="inline-flex items-center gap-1.5 bg-white/[0.08] text-white border border-white/[0.12] px-[14px] py-[7px] rounded-[6px] text-[12px] font-bold font-[Manrope,sans-serif] cursor-pointer hover:bg-white/[0.14] transition-all">
           ⬇<span className="hidden sm:inline"> Export</span>
         </button>
-        <button onClick={handleSaveAll} className="inline-flex items-center gap-1.5 bg-[#0f2240] text-white border border-[#0f2240] px-[14px] py-[7px] rounded-[6px] text-[12px] font-bold font-[Manrope,sans-serif] cursor-pointer hover:bg-[#0a1733] transition-all">
-          💾<span className="hidden sm:inline"> Publish</span>
+        <button
+          onClick={handleSaveAll}
+          disabled={saving}
+          className="inline-flex items-center gap-1.5 bg-[#0f2240] text-white border border-[#0f2240] px-[14px] py-[7px] rounded-[6px] text-[12px] font-bold font-[Manrope,sans-serif] cursor-pointer hover:bg-[#0a1733] transition-all disabled:opacity-60"
+        >
+          {saving ? "⏳" : "💾"}<span className="hidden sm:inline">{saving ? " Saving…" : " Publish"}</span>
         </button>
       </div>
 
       {/* MAIN */}
-      <div className="flex-1 grid min-h-0 overflow-hidden" style={{ gridTemplateColumns: "240px 1fr 1fr" }}>
+      <div className="flex-1 min-h-0 overflow-hidden relative" style={{ display: "grid", gridTemplateColumns: "240px 1fr 1fr" }}>
+
+        {/* Mobile backdrop */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 top-14 bg-black/40 z-50 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
 
         {/* SIDEBAR */}
-        <aside className="bg-[#fafafa] border-r border-[#e5e7eb] overflow-y-auto py-4">
+        <aside className={`bg-[#fafafa] border-r border-[#e5e7eb] overflow-y-auto py-4 z-[60] transition-transform duration-250
+          md:relative md:translate-x-0
+          max-md:fixed max-md:top-14 max-md:bottom-0 max-md:w-[260px] max-md:shadow-[4px_0_16px_rgba(0,0,0,0.08)]
+          ${sidebarOpen ? "max-md:translate-x-0" : "max-md:-translate-x-full"}`}>
           <div className="text-[10px] font-bold tracking-[0.12em] uppercase text-[#6b7280] px-5 pb-2 pt-[14px]">Pages</div>
           {sideNav([
             { page: "home", label: "Home", count: 8, icon: <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-4 h-4"><path d="M2 8L8 2l6 6v6H2V8z"/></svg> },
@@ -791,7 +724,10 @@ export default function CrmPage() {
         </aside>
 
         {/* EDITOR */}
-        <main className="bg-white overflow-y-auto border-r border-[#e5e7eb]" style={{ display: previewMode ? "none" : "block" }}>
+        <main
+          className="bg-white overflow-y-auto border-r border-[#e5e7eb]"
+          style={{ display: previewMode ? "none" : "block", gridColumn: previewMode ? undefined : undefined }}
+        >
           {/* Sticky header */}
           <div className="px-7 pt-6 pb-4 border-b border-[#e5e7eb] sticky top-0 bg-white z-10">
             <div className="text-[11px] font-bold tracking-[0.1em] uppercase text-[#6b7280] mb-1.5">{meta.crumb}</div>
@@ -802,7 +738,7 @@ export default function CrmPage() {
         </main>
 
         {/* PREVIEW */}
-        <section className="bg-[#f6f7f9] flex flex-col min-w-0" style={{ display: previewMode ? "flex" : "flex" }}>
+        <section className="bg-[#f6f7f9] flex flex-col min-w-0">
           {/* Preview bar */}
           <div className="h-11 bg-white border-b border-[#e5e7eb] px-4 flex items-center gap-3 shrink-0">
             <div className="flex gap-0.5 bg-[#f3f4f6] rounded-lg p-[3px]">
@@ -833,13 +769,19 @@ export default function CrmPage() {
               className="w-full bg-white border border-[#e5e7eb] rounded-lg shadow-[0_1px_3px_rgba(0,0,0,0.06)] transition-[max-width] duration-300"
               style={{ maxWidth: iframeMaxWidth, minHeight: "600px", height: "100%" }}
               title="Live Preview"
+              onLoad={() => {
+                iframeRef.current?.contentWindow?.postMessage(
+                  { type: "cms-preview-update", cms: state },
+                  "*"
+                );
+              }}
             />
           </div>
         </section>
       </div>
 
       {/* Mobile bottom pane tabs */}
-      <div className="hidden fixed bottom-[14px] left-1/2 -translate-x-1/2 z-[70] bg-[#111517] p-1 rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.3)] gap-0.5" id="paneTabs">
+      <div className="md:hidden fixed bottom-[14px] left-1/2 -translate-x-1/2 z-[70] bg-[#111517] p-1 rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.3)] flex gap-0.5">
         <button onClick={() => setPreviewMode(false)} className={`px-4 py-2 rounded-full text-[12px] font-bold font-[Manrope,sans-serif] border-none cursor-pointer flex items-center gap-1.5 ${!previewMode ? "bg-[#0f2240] text-white" : "bg-transparent text-white/60"}`}>✎ Edit</button>
         <button onClick={() => setPreviewMode(true)} className={`px-4 py-2 rounded-full text-[12px] font-bold font-[Manrope,sans-serif] border-none cursor-pointer flex items-center gap-1.5 ${previewMode ? "bg-[#0f2240] text-white" : "bg-transparent text-white/60"}`}>👁 Preview</button>
       </div>

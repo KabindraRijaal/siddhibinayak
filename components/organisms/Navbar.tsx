@@ -9,7 +9,7 @@ import { Btn } from "@/components/atoms/Btn";
 import { useQuote } from "@/components/organisms/QuoteModal";
 import { cn } from "@/lib/utils";
 
-const NAV_LINKS = [
+const DEFAULT_NAV_LINKS = [
   { label: "Services", url: "/services" },
   { label: "About", url: "/about" },
   { label: "Projects", url: "/projects" },
@@ -18,9 +18,12 @@ const NAV_LINKS = [
 
 interface NavbarProps {
   activePage?: string;
+  navLinks?: { label: string; url: string }[];
+  brandName?: string;
 }
 
-export function Navbar({ activePage }: NavbarProps) {
+export function Navbar({ activePage, navLinks, brandName }: NavbarProps) {
+  const NAV_LINKS = navLinks ?? DEFAULT_NAV_LINKS;
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { open: openQuote } = useQuote();
@@ -51,7 +54,7 @@ export function Navbar({ activePage }: NavbarProps) {
               />
               <div>
                 <div className="font-head font-extrabold text-primary text-[18px] leading-tight">
-                  Siddhibinayak
+                  {brandName ?? "Siddhibinayak"}
                 </div>
                 <div className="text-[11px] uppercase tracking-widest text-secondary font-medium">
                   Nirman Sewa
