@@ -14,7 +14,7 @@ export function TimelineItem({ year, title, desc, last = false }: TimelineItemPr
       )}
       <div className="text-xs font-bold uppercase tracking-wider text-primary">{year}</div>
       <h4 className="font-head font-bold text-lg mt-1.5 mb-2">{title}</h4>
-      <p className="text-sm text-gray-600 leading-relaxed">{desc}</p>
+      <p className="text-sm text-[#4a5568] leading-relaxed">{desc}</p>
     </div>
   );
 }

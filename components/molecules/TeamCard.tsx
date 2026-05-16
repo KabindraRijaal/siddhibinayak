@@ -21,7 +21,7 @@ export function TeamCard({ name, role, image, initials }: TeamCardProps) {
       </div>
       <div className="p-5">
         <div className="font-head font-bold">{name}</div>
-        <div className="text-sm text-gray-500 mt-0.5">{role}</div>
+        <div className="text-sm text-[#4a5568] mt-0.5">{role}</div>
       </div>
     </div>
   );

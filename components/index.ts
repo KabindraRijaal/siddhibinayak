@@ -25,3 +25,4 @@ export { ContactForm } from "./organisms/ContactForm";
 // Layout
 export { CTABanner } from "./layout/CTABanner";
 export { PageHero } from "./layout/PageHero";
+export { Section } from "./layout/Section";

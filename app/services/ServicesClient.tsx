@@ -45,10 +45,10 @@ function ServiceRow({ svc, num, expanded, onToggle }: {
         </div>
         <div>
           <h3 className="font-head text-[22px] font-bold mb-1.5">{svc.title}</h3>
-          <p className="text-[15px] text-gray-500 leading-relaxed">{svc.desc}</p>
+          <p className="text-[15px] text-[#4a5568] leading-relaxed">{svc.desc}</p>
         </div>
         <div className={`w-11 h-11 rounded-full flex items-center justify-center text-lg shrink-0 transition-all duration-200 ${
-          expanded ? "bg-primary text-white rotate-90" : "bg-gray-50 text-primary hover:bg-primary hover:text-white hover:-rotate-45"
+          expanded ? "bg-primary text-white rotate-90" : "bg-background text-primary hover:bg-primary hover:text-white hover:-rotate-45"
         }`}>
           →
         </div>
@@ -70,7 +70,7 @@ function ServiceRow({ svc, num, expanded, onToggle }: {
                 ))}
               </ul>
             </div>
-            <div className="bg-gray-50 rounded-xl p-6">
+            <div className="bg-background rounded-xl p-6">
               <div className="font-head text-[28px] font-extrabold text-primary mb-1">{svc.price}</div>
               <div className="text-[13px] text-[#3e4a5e] mb-4">{svc.priceLabel}</div>
               <button

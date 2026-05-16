@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Manrope, Work_Sans, Geist_Mono } from "next/font/google";
+import { Manrope, Work_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { QuoteModalProvider } from "@/components/organisms/QuoteModal";
 import { Toaster } from "@/components/ui/sonner";
@@ -17,9 +17,10 @@ const workSans = Work_Sans({
   weight: ["300", "400", "500", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 export const metadata: Metadata = {
@@ -36,7 +37,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${manrope.variable} ${workSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${manrope.variable} ${workSans.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <CmsPreviewProvider>

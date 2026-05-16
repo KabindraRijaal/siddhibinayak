@@ -67,7 +67,7 @@ function ProjectModal({ project, onClose }: { project: ProjectRow; onClose: () =
             {project.catLabel}
           </span>
           <h2 className="font-head text-[28px] font-extrabold mb-2 leading-tight">{project.name}</h2>
-          <p className="text-[14px] text-[#4a5568] mb-5 flex items-center gap-1.5">📍 {project.loc}</p>
+          <p className="text-[14px] text-[#4a5568] mb-5 flex items-center gap-1.5"> {project.loc}</p>
           <p className="text-[15px] text-[#4a5568] leading-[1.7] mb-7">{project.desc}</p>
           <div className="grid grid-cols-2 gap-4 mb-7">
             {[
@@ -258,7 +258,7 @@ export function ProjectsClient() {
                       </div>
                       <div className="p-6">
                         <h3 className={`font-head font-bold mb-2 ${isFeatured ? "text-[24px]" : "text-[18px]"}`}>{p.name}</h3>
-                        <p className="text-[13px] text-[#4a5568] flex items-center gap-1.5 mb-3">📍 {p.loc}</p>
+                        <p className="text-[13px] text-[#4a5568] flex items-center gap-1.5 mb-3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> {p.loc}</p>
                         <p className="text-[14px] text-[#4a5568] leading-[1.6] mb-4 line-clamp-2">{p.desc}</p>
                         <div className="flex items-center justify-between border-t border-[#cdd5e3] pt-3.5">
                           <span className="text-[12px] text-[#3e4a5e] font-medium">{p.area}</span>
@@ -294,7 +294,7 @@ export function ProjectsClient() {
                     </div>
                     <div className="p-8 flex flex-col justify-center">
                       <h3 className="font-head text-[22px] font-bold mb-2.5">{p.name}</h3>
-                      <p className="text-[13px] text-[#4a5568] flex items-center gap-1.5 mb-3">📍 {p.loc}</p>
+                      <p className="text-[13px] text-[#4a5568] flex items-center gap-1.5 mb-3"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> {p.loc}</p>
                       <p className="text-[14px] text-[#4a5568] leading-[1.6] mb-4 line-clamp-3">{p.desc}</p>
                       <div className="flex items-center justify-between border-t border-[#cdd5e3] pt-3.5">
                         <span className="text-[12px] text-[#3e4a5e] font-medium">{p.area}</span>

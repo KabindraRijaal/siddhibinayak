@@ -69,7 +69,7 @@ export function ProjectsGrid({ projects, showFilter = true }: ProjectsGridProps)
               </div>
               <div>
                 <span className="font-semibold text-primary uppercase tracking-wider text-[11px]">Location</span>
-                <p className="mt-0.5">📍 {selected.location}</p>
+                <p className="mt-0.5">{selected.location}</p>
               </div>
               {selected.year && (
                 <div>

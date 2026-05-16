@@ -3,8 +3,11 @@
 import { useState } from "react";
 import { toast } from "sonner";
 
-const inputCls = "px-4 py-3 border border-[#cdd5e3] rounded-lg text-[15px] bg-white outline-none focus:border-primary focus:shadow-[0_0_0_3px_rgba(15,34,64,0.08)] transition-all w-full font-body text-foreground placeholder:text-gray-400";
-const labelCls = "text-[12px] font-semibold tracking-[0.1em] uppercase text-[#3e4a5e]";
+// Design spec: inputs — 8px radius, 1px #e5e7eb border, #fafafa bg, focus: navy border + 3px rgba(15,34,64,0.08) ring
+// Labels — 11px / 600 / 0.1em uppercase. Required asterisk in navy.
+// iOS: inputs use 16px on mobile (enforced globally in globals.css)
+const inputCls = "px-4 py-3 border border-[#e5e7eb] rounded-lg text-[15px] bg-[#fafafa] outline-none focus:border-primary focus:bg-white focus:shadow-[0_0_0_3px_rgba(15,34,64,0.08)] transition-all w-full font-body text-foreground placeholder:text-gray-400";
+const labelCls = "text-[11px] font-semibold tracking-[0.1em] uppercase text-[#3e4a5e]";
 
 export function ContactForm() {
   const [loading, setLoading] = useState(false);

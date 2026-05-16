@@ -35,7 +35,7 @@ function ContactForm() {
     return (
       <div className="text-center py-8">
         <div className="text-primary font-head font-bold text-lg mb-2">Message sent!</div>
-        <div className="text-[14px] text-gray-500">We&apos;ll respond within 24 hours.</div>
+        <div className="text-[14px] text-[#4a5568]">We&apos;ll respond within 24 hours.</div>
       </div>
     );
   }
@@ -182,16 +182,18 @@ export function ContactClient() {
         </Container>
       </section>
 
-      <div className="px-8 pb-24">
-        <div className="max-w-7xl mx-auto rounded-2xl overflow-hidden border border-[#cdd5e3]" style={{ aspectRatio: "21/9" }}>
-          <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=83.97%2C28.20%2C84.00%2C28.22&layer=mapnik&marker=28.21%2C83.985"
-            width="100%"
-            height="100%"
-            style={{ border: 0, display: "block" }}
-            title="Baglung Office Location"
-          />
-        </div>
+      <div className="pb-24">
+        <Container>
+          <div className="rounded-2xl overflow-hidden border border-[#cdd5e3]" style={{ aspectRatio: "21/9" }}>
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=83.58%2C28.25%2C83.62%2C28.29&layer=mapnik&marker=28.27%2C83.60"
+              width="100%"
+              height="100%"
+              style={{ border: 0, display: "block" }}
+              title="Baglung Office Location"
+            />
+          </div>
+        </Container>
       </div>
 
       <section className="py-30 bg-white">
@@ -218,7 +220,4 @@ export function ContactClient() {
         ctaHref={`tel:${contact.phone1.replace(/\s/g, "")}`}
       />
 
-      <Footer cms={cms} />
-    </>
-  );
-}
+      <

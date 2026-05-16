@@ -54,7 +54,7 @@ export function StatCard({ num, suffix = "+", label, variant = "dark" }: StatCar
       <div
         className={cn(
           "text-[13px] font-medium uppercase tracking-[0.08em] mt-2",
-          isDark ? "text-white/60" : "text-gray-500"
+          isDark ? "text-white/60" : "text-[#6b7585]"
         )}
       >
         {label}

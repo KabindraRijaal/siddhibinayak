@@ -33,7 +33,7 @@ export function FAQItem({ q, a }: FAQItemProps) {
         </span>
       </button>
       {open && (
-        <div className="px-5 pb-5 text-sm text-gray-600 leading-relaxed">{a}</div>
+        <div className="px-5 pb-5 text-sm text-[#4a5568] leading-relaxed">{a}</div>
       )}
     </div>
   );
