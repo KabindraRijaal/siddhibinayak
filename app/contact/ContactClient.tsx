@@ -220,4 +220,7 @@ export function ContactClient() {
         ctaHref={`tel:${contact.phone1.replace(/\s/g, "")}`}
       />
 
-      <
+      <Footer />
+    </>
+  );
+}
